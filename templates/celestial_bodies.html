@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Celestial Bodies</title>
+    <style></style>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/">Home</a>
+      <a href="/celestial_bodies">Celestial Bodies</a>
+      <a href="/spacecraft">Spacecraft</a>
+      <a href="/astronauts">Astronauts</a>
+      <a href="/experiments">Experiments</a>
+      <a href="/alien_encounters">Alien Encounters</a>
+      <a href="/mission_details">Mission Details</a>
+    </div>
+    <h1>Celestial Bodies</h1>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+      </tr>
+      {% for body in celestial_bodies %}
+      <tr>
+        <td>{{ body.id }}</td>
+        <td>{{ body.name }}</td>
+        <td>{{ body.type }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2>Add Celestial Body</h2>
+    <form class="ajax-form" id="celestial-body-form" action="/add_celestial_body" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="type">Type:</label>
+      <input type="text" id="type" name="type" required />
+
+      <button type="submit">Add Celestial Body</button>
+    </form>
+  </body>
+</html>

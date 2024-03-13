@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiments</title>
+    <style></style>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/">Home</a>
+      <a href="/celestial_bodies">Celestial Bodies</a>
+      <a href="/spacecraft">Spacecraft</a>
+      <a href="/astronauts">Astronauts</a>
+      <a href="/experiments">Experiments</a>
+      <a href="/alien_encounters">Alien Encounters</a>
+      <a href="/mission_details">Mission Details</a>
+    </div>
+    <h1>Experiments</h1>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Results</th>
+        <th>Spacecraft ID</th>
+      </tr>
+      {% for experiment in experiments %}
+      <tr>
+        <td>{{ experiment.id }}</td>
+        <td>{{ experiment.name }}</td>
+        <td>{{ experiment.results }}</td>
+        <td>{{ experiment.spacecraft_id }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2>Add Experiment</h2>
+    <form class="ajax-form" id="experiment-form" action="/add_experiment" method="post">
+      <label for="experiment_name">Name:</label>
+      <input type="text" id="experiment_name" name="name" required />
+
+      <label for="results">Results:</label>
+      <input type="text" id="results" name="results" required />
+
+      <label for="spacecraft_id">Spacecraft ID:</label>
+      <input type="text" id="spacecraft_id" name="spacecraft_id" required />
+
+      <button type="submit">Add Experiment</button>
+    </form>
+  </body>
+</html>

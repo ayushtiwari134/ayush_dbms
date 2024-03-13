@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Astronauts</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/celestial_bodies">Celestial Bodies</a>
+      <a href="/spacecraft">Spacecraft</a>
+      <a href="/astronauts">Astronauts</a>
+      <a href="/experiments">Experiments</a>
+      <a href="/alien_encounters">Alien Encounters</a>
+      <a href="/mission_details">Mission Details</a>
+    </div>
+    <h1>Astronauts</h1>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Specialization</th>
+      </tr>
+      {% for astronaut in astronauts %}
+      <tr>
+        <td>{{ astronaut.id }}</td>
+        <td>{{ astronaut.name }}</td>
+        <td>{{ astronaut.specialization }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2>Add Astronaut</h2>
+    <form class="ajax-form" id="astronaut-form" action="/add_astronaut" method="post">
+      <label for="astronaut_name">Name:</label>
+      <input type="text" id="astronaut_name" name="name" required />
+
+      <label for="specialization">Specialization:</label>
+      <input type="text" id="specialization" name="specialization" required />
+
+      <button type="submit">Add Astronaut</button>
+    </form>
+  </body>
+</html>

@@ -4,275 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Space Exploration Database</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      .navbar {
+        position: fixed;
+        top: 20px;
+        width: 100%;
+        background-color: black;
       }
-      body {
-        font-family: "Arial", sans-serif;
-        margin: 20px;
-        background-color: #333; /* Dark background color */
-        color: #fff; /* Light text color */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
       h1 {
-        color: #af4a4a; /* Dark red for h1 color */
-        border-bottom: 2px solid #af4a4a;
-        padding-bottom: 5px;
-        margin-bottom: 20px;
-      }
-
-      table {
-        width: 70%;
-        border-collapse: collapse;
-        margin-bottom: 30px;
-        background-color: #444; /* Dark background color for table */
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-        color: #fff; /* Light text color */
-      }
-
-      th,
-      td {
-        padding: 12px;
+        font-size: 4rem;
         text-align: left;
-        border-bottom: 1px solid #666; /* Darker border color */
       }
-
-      th {
-        background-color: #666; /* Darker background color for th */
-        color: #fff;
-      }
-
-      tr:hover {
-        background-color: #555; /* Slightly darker background on hover */
-      }
-
-      form {
+      p {
+        font-size: 1.5rem;
+        text-align: left;
         width: 70%;
-        background-color: #555; /* Darker background color for form */
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-        padding: 20px;
-        margin-bottom: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
       }
-
-      label {
-        flex: 0 0 calc(20% - 10px);
-        margin-bottom: 8px;
-        color: #fff; /* Light text color */
-      }
-
-      input {
-        flex: 0 0 calc(30% - 10px);
-        padding: 10px;
-        box-sizing: border-box;
-        border: 1px solid #777; /* Darker border color */
-        border-radius: 4px;
-        font-size: 16px;
-        background-color: #666; /* Darker background color for input */
-        color: #fff; /* Light text color */
-      }
-
-      button {
-        background-color: #af4a4a;
-        color: #fff;
-        padding: 12px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        flex: 0 0 calc(30% - 10px);
-      }
-
-      button:hover {
-        background-color: #ad1b1b;
-      }
-      h2 {
-        margin-bottom: 20px;
-        color: #af4a4a; /* Dark red for h2 color */
+      .span {
+        color: #af4a4a;
       }
     </style>
   </head>
   <body>
-    <h1>Celestial Bodies</h1>
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Type</th>
-      </tr>
-      {% for body in celestial_bodies %}
-      <tr>
-        <td>{{ body.id }}</td>
-        <td>{{ body.name }}</td>
-        <td>{{ body.type }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    <h2>Add Celestial Body</h2>
-    <form action="/add_celestial_body" method="post">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
+    <div class="navbar">
+      <a href="/celestial_bodies">Celestial Bodies</a>
+      <a href="/spacecraft">Spacecraft</a>
+      <a href="/astronauts">Astronauts</a>
+      <a href="/experiments">Experiments</a>
+      <a href="/alien_encounters">Alien Encounters</a>
+      <a href="/mission_details">Mission Details</a>
+    </div>
 
-      <label for="type">Type:</label>
-      <input type="text" id="type" name="type" required />
-
-      <button type="submit">Add Celestial Body</button>
-    </form>
-
-    <h1>Spacecraft</h1>
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Launch Date</th>
-        <th>Mission ID</th>
-      </tr>
-      {% for craft in spacecraft %}
-      <tr>
-        <td>{{ craft.id }}</td>
-        <td>{{ craft.name }}</td>
-        <td>{{ craft.launch_date }}</td>
-        <td>{{ craft.mission_id }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    <h2>Add Spacecraft</h2>
-    <form action="/add_spacecraft" method="post">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="launch_date">Launch Date:</label>
-      <input type="date" id="launch_date" name="launch_date" required />
-
-      <label for="mission_id">Mission ID:</label>
-      <input type="number" id="mission_id" name="mission_id" required />
-
-      <button type="submit">Add Spacecraft</button>
-    </form>
-
-    <h1>Astronauts</h1>
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Specialization</th>
-      </tr>
-      {% for astronaut in astronauts %}
-      <tr>
-        <td>{{ astronaut.id }}</td>
-        <td>{{ astronaut.name }}</td>
-        <td>{{ astronaut.specialization }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    <h2>Add Astronaut</h2>
-    <form action="/add_astronaut" method="post">
-      <label for="astronaut_name">Name:</label>
-      <input type="text" id="astronaut_name" name="name" required />
-
-      <label for="specialization">Specialization:</label>
-      <input type="text" id="specialization" name="specialization" required />
-
-      <button type="submit">Add Astronaut</button>
-    </form>
-
-    <h1>Experiments</h1>
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Results</th>
-        <th>Spacecraft ID</th>
-      </tr>
-      {% for experiment in experiments %}
-      <tr>
-        <td>{{ experiment.id }}</td>
-        <td>{{ experiment.name }}</td>
-        <td>{{ experiment.results }}</td>
-        <td>{{ experiment.spacecraft_id }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    <h2>Add Experiment</h2>
-    <form action="/add_experiment" method="post">
-      <label for="experiment_name">Name:</label>
-      <input type="text" id="experiment_name" name="name" required />
-
-      <label for="results">Results:</label>
-      <input type="text" id="results" name="results" required />
-
-      <label for="spacecraft_id">Spacecraft ID:</label>
-      <input type="text" id="spacecraft_id" name="spacecraft_id" required />
-
-      <button type="submit">Add Experiment</button>
-    </form>
-
-    <h1>Alien Encounters</h1>
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Location</th>
-        <th>Date</th>
-      </tr>
-      {% for encounter in alien_encounters %}
-      <tr>
-        <td>{{ encounter.id }}</td>
-        <td>{{ encounter.description }}</td>
-        <td>{{ encounter.location }}</td>
-        <td>{{ encounter.date }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    <h2>Add Alien Encounter</h2>
-    <form action="/add_alien_encounter" method="post">
-      <label for="description">Description:</label>
-      <input type="text" id="description" name="description" required />
-
-      <label for="location">Location:</label>
-      <input type="text" id="location" name="location" required />
-
-      <label for="date">Date:</label>
-      <input type="date" id="date" name="date" required />
-
-      <button type="submit">Add Alien Encounter</button>
-    </form>
-
-    <h1>Mission Details</h1>
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Destination</th>
-      </tr>
-      {% for mission in mission_details %}
-      <tr>
-        <td>{{ mission.id }}</td>
-        <td>{{ mission.name }}</td>
-        <td>{{ mission.destination }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    <h2>Add Mission Detail</h2>
-    <form action="/add_mission_detail" method="post">
-      <label for="mission_name">Name:</label>
-      <input type="text" id="mission_name" name="name" required />
-
-      <label for="destination">Destination:</label>
-      <input type="text" id="destination" name="destination" required />
-
-      <button type="submit">Add Mission Detail</button>
-    </form>
+    <div class="container">
+      <div class="left">
+        <h1>Space Exploration Database</h1>
+        <p>
+          Welcome to the Space Exploration Database Management System. Explore
+          information about <span class="span">celestial bodies</span>,
+          <span class="span">spacecraft</span>,
+          <span class="span">astronauts</span>,
+          <span class="span">experiments</span>,
+          <span class="span">alien encounters</span>, and
+          <span class="span">mission details</span>.
+        </p>
+      </div>
+      <div class="right">
+        <img
+          src="{{ url_for('static', filename='rocket.gif') }}"
+          alt="Space"
+          width="600"
+          height="600"
+        />
+      </div>
+    </div>
   </body>
 </html>

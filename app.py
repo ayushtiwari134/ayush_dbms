@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -96,6 +96,11 @@ def index():
                            alien_encounters=AlienEncounter.query.all(),
                            mission_details=MissionDetails.query.all())
 
+@app.route('/celestial_bodies')
+def celestial_bodies():
+    return render_template('celestial_bodies.html', celestial_bodies=CelestialBody.query.all())
+
+
 @app.route('/add_celestial_body', methods=['POST'])
 def add_celestial_body():
     if request.method == 'POST':
@@ -105,8 +110,12 @@ def add_celestial_body():
         new_body = CelestialBody(name=name, type=type)
         db.session.add(new_body)
         db.session.commit()
-
+        return jsonify(success=True)
     return redirect(url_for('index'))
+
+@app.route('/spacecraft')
+def spacecraft():
+    return render_template('spacecraft.html', spacecraft=Spacecraft.query.all())
 
 @app.route('/add_spacecraft', methods=['POST'])
 def add_spacecraft():
@@ -118,8 +127,14 @@ def add_spacecraft():
         new_craft = Spacecraft(name=name, launch_date=launch_date, mission_id=mission_id)
         db.session.add(new_craft)
         db.session.commit()
+        return jsonify(success=True)
 
     return redirect(url_for('index'))
+
+@app.route('/astronauts')
+def astronauts():
+    return render_template('astronauts.html', astronauts=Astronaut.query.all())
+
 
 @app.route('/add_astronaut', methods=['POST'])
 def add_astronaut():
@@ -130,8 +145,13 @@ def add_astronaut():
         new_astronaut = Astronaut(name=name, specialization=specialization)
         db.session.add(new_astronaut)
         db.session.commit()
+        return jsonify(success=True)
 
     return redirect(url_for('index'))
+
+@app.route('/experiments')
+def experiments():
+    return render_template('experiments.html', experiments=Experiment.query.all())
 
 @app.route('/add_experiment', methods=['POST'])
 def add_experiment():
@@ -143,8 +163,13 @@ def add_experiment():
         new_experiment = Experiment(name=name, results=results, spacecraft_id=spacecraft_id)
         db.session.add(new_experiment)
         db.session.commit()
+        return jsonify(success=True)
 
     return redirect(url_for('index'))
+
+@app.route('/alien_encounters')
+def alien_encounters():
+    return render_template('alien_encounters.html', alien_encounters=AlienEncounter.query.all())
 
 @app.route('/add_alien_encounter', methods=['POST'])
 def add_alien_encounter():
@@ -156,8 +181,12 @@ def add_alien_encounter():
         new_encounter = AlienEncounter(description=description, location=location, date=date)
         db.session.add(new_encounter)
         db.session.commit()
-
+        return jsonify(success=True)
     return redirect(url_for('index'))
+
+@app.route('/mission_details')
+def mission_details():
+    return render_template('mission_details.html', mission_details=MissionDetails.query.all())
 
 @app.route('/add_mission_detail', methods=['POST'])
 def add_mission_detail():
@@ -168,6 +197,7 @@ def add_mission_detail():
         new_mission = MissionDetails(name=name, destination=destination)
         db.session.add(new_mission)
         db.session.commit()
+        return jsonify(success=True)
 
     return redirect(url_for('index'))
 

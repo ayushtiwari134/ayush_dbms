@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alien Encounters</title>
+    <style></style>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/">Home</a>
+      <a href="/celestial_bodies">Celestial Bodies</a>
+      <a href="/spacecraft">Spacecraft</a>
+      <a href="/astronauts">Astronauts</a>
+      <a href="/experiments">Experiments</a>
+      <a href="/alien_encounters">Alien Encounters</a>
+      <a href="/mission_details">Mission Details</a>
+    </div>
+    <h1>Alien Encounters</h1>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Date</th>
+      </tr>
+      {% for encounter in alien_encounters %}
+      <tr>
+        <td>{{ encounter.id }}</td>
+        <td>{{ encounter.description }}</td>
+        <td>{{ encounter.location }}</td>
+        <td>{{ encounter.date }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2>Add Alien Encounter</h2>
+    <form class="ajax-form" id="alien-encounter-form" action="/add_alien_encounter" method="post">
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" required />
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required />
+
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required />
+
+      <button type="submit">Add Alien Encounter</button>
+    </form>
+  </body>
+</html>
