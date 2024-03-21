@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experiments</title>
-    <style></style>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='index.css') }}"
@@ -28,6 +27,7 @@
         <th>Name</th>
         <th>Results</th>
         <th>Spacecraft ID</th>
+        <th>Actions</th>
       </tr>
       {% for experiment in experiments %}
       <tr>
@@ -35,19 +35,64 @@
         <td>{{ experiment.name }}</td>
         <td>{{ experiment.results }}</td>
         <td>{{ experiment.spacecraft_id }}</td>
+        <td>
+          <form
+            method="POST"
+            action="{{ url_for('modify_experiment', id=experiment.id) }}"
+          >
+            <input type="hidden" name="id" value="{{ experiment.id }}" />
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value="{{ experiment.name }}"
+              required
+            />
+            <label for="results">Results:</label>
+            <input
+              type="text"
+              id="results"
+              name="results"
+              value="{{ experiment.results }}"
+              required
+            />
+            <label for="spacecraft_id">Spacecraft ID:</label>
+            <input
+              type="number"
+              id="spacecraft_id"
+              name="spacecraft_id"
+              value="{{ experiment.spacecraft_id }}"
+              required
+            />
+            <button type="submit">Modify</button>
+          </form>
+
+          <form
+            method="POST"
+            action="{{ url_for('delete_experiment', id=experiment.id) }}"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </table>
     <h2>Add Experiment</h2>
-    <form class="ajax-form" id="experiment-form" action="/add_experiment" method="post">
-      <label for="experiment_name">Name:</label>
-      <input type="text" id="experiment_name" name="name" required />
+    <form
+      class="ajax-form"
+      id="experiment-form"
+      action="/add_experiment"
+      method="post"
+    >
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
 
       <label for="results">Results:</label>
       <input type="text" id="results" name="results" required />
 
       <label for="spacecraft_id">Spacecraft ID:</label>
-      <input type="text" id="spacecraft_id" name="spacecraft_id" required />
+      <input type="number" id="spacecraft_id" name="spacecraft_id" required />
 
       <button type="submit">Add Experiment</button>
     </form>

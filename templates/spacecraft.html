@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spacecraft</title>
-    <style></style>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='index.css') }}"
@@ -15,7 +14,7 @@
     <div class="navbar">
       <a href="/" class="active">Home</a>
       <a href="/celestial_bodies">Celestial Bodies</a>
-      <a href="/spacecraft">Spacecraft</a>
+      <a href="/spacecraft" class="active">Spacecraft</a>
       <a href="/astronauts">Astronauts</a>
       <a href="/experiments">Experiments</a>
       <a href="/alien_encounters">Alien Encounters</a>
@@ -28,6 +27,8 @@
         <th>Name</th>
         <th>Launch Date</th>
         <th>Mission ID</th>
+        <th>Actions</th>
+        <!-- Add Actions column -->
       </tr>
       {% for craft in spacecraft %}
       <tr>
@@ -35,11 +36,60 @@
         <td>{{ craft.name }}</td>
         <td>{{ craft.launch_date }}</td>
         <td>{{ craft.mission_id }}</td>
+        <td>
+          <!-- Actions column -->
+          <form
+            method="POST"
+            action="{{ url_for('modify_spacecraft', id=craft.id) }}"
+          >
+            <input type="hidden" name="id" value="{{ craft.id }}" />
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value="{{ craft.name }}"
+              required
+            />
+
+            <label for="launch_date">Launch Date:</label>
+            <input
+              type="date"
+              id="launch_date"
+              name="launch_date"
+              value="{{ craft.launch_date }}"
+              required
+            />
+
+            <label for="mission_id">Mission ID:</label>
+            <input
+              type="number"
+              id="mission_id"
+              name="mission_id"
+              value="{{ craft.mission_id }}"
+              required
+            />
+
+            <button type="submit">Modify</button>
+          </form>
+
+          <form
+            method="POST"
+            action="{{ url_for('delete_spacecraft', id=craft.id) }}"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </table>
     <h2>Add Spacecraft</h2>
-    <form class="ajax-form" id="spacecraft-form" action="/add_spacecraft" method="post">
+    <form
+      class="ajax-form"
+      id="spacecraft-form"
+      action="/add_spacecraft"
+      method="post"
+    >
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required />
 

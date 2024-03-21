@@ -106,16 +106,31 @@ def add_celestial_body():
     if request.method == 'POST':
         name = request.form['name']
         type = request.form['type']
-
-        new_body = CelestialBody(name=name, type=type)
-        db.session.add(new_body)
+        new_celestial_body = CelestialBody(name=name, type=type)
+        db.session.add(new_celestial_body)
         db.session.commit()
-        return jsonify(success=True)
+    return redirect(url_for('index'))
+
+@app.route('/delete_celestial_body/<int:id>', methods=['POST'])
+def delete_celestial_body(id):
+    celestial_body = CelestialBody.query.get_or_404(id)
+    db.session.delete(celestial_body)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/modify_celestial_body/<int:id>', methods=['POST'])
+def modify_celestial_body(id):
+    celestial_body = CelestialBody.query.get_or_404(id)
+    if request.method == 'POST':
+        celestial_body.name = request.form['name']
+        celestial_body.type = request.form['type']
+        db.session.commit()
     return redirect(url_for('index'))
 
 @app.route('/spacecraft')
 def spacecraft():
     return render_template('spacecraft.html', spacecraft=Spacecraft.query.all())
+
 
 @app.route('/add_spacecraft', methods=['POST'])
 def add_spacecraft():
@@ -124,12 +139,28 @@ def add_spacecraft():
         launch_date = request.form['launch_date']
         mission_id = request.form['mission_id']
 
-        new_craft = Spacecraft(name=name, launch_date=launch_date, mission_id=mission_id)
-        db.session.add(new_craft)
+        new_spacecraft = Spacecraft(name=name, launch_date=launch_date, mission_id=mission_id)
+        db.session.add(new_spacecraft)
         db.session.commit()
-        return jsonify(success=True)
+        return redirect(url_for('index'))
+    return redirect(url_for('spacecraft'))
 
-    return redirect(url_for('index'))
+@app.route('/delete_spacecraft/<int:id>', methods=['POST'])
+def delete_spacecraft(id):
+    spacecraft = Spacecraft.query.get_or_404(id)
+    db.session.delete(spacecraft)
+    db.session.commit()
+    return redirect(url_for('spacecraft'))
+
+@app.route('/modify_spacecraft/<int:id>', methods=['POST'])
+def modify_spacecraft(id):
+    spacecraft = Spacecraft.query.get_or_404(id)
+    if request.method == 'POST':
+        spacecraft.name = request.form['name']
+        spacecraft.launch_date = request.form['launch_date']
+        spacecraft.mission_id = request.form['mission_id']
+        db.session.commit()
+    return redirect(url_for('spacecraft'))
 
 @app.route('/astronauts')
 def astronauts():
@@ -145,9 +176,25 @@ def add_astronaut():
         new_astronaut = Astronaut(name=name, specialization=specialization)
         db.session.add(new_astronaut)
         db.session.commit()
-        return jsonify(success=True)
+        
+    return redirect(url_for('astronauts'))
 
-    return redirect(url_for('index'))
+@app.route('/delete_astronaut/<int:id>', methods=['POST'])
+def delete_astronaut(id):
+    astronaut = Astronaut.query.get_or_404(id)
+    db.session.delete(astronaut)
+    db.session.commit()
+    return redirect(url_for('astronauts'))
+
+@app.route('/modify_astronaut/<int:id>', methods=['POST'])
+def modify_astronaut(id):
+    astronaut = Astronaut.query.get_or_404(id)
+    if request.method == 'POST':
+        astronaut.name = request.form['name']
+        astronaut.age = request.form['age']
+        astronaut.mission_id = request.form['mission_id']
+        db.session.commit()
+    return redirect(url_for('astronauts'))
 
 @app.route('/experiments')
 def experiments():
@@ -163,9 +210,25 @@ def add_experiment():
         new_experiment = Experiment(name=name, results=results, spacecraft_id=spacecraft_id)
         db.session.add(new_experiment)
         db.session.commit()
-        return jsonify(success=True)
+        
+    return redirect(url_for('experiments'))
 
-    return redirect(url_for('index'))
+@app.route('/delete_experiment/<int:id>', methods=['POST'])
+def delete_experiment(id):
+    experiment = Experiment.query.get_or_404(id)
+    db.session.delete(experiment)
+    db.session.commit()
+    return redirect(url_for('experiments'))
+
+@app.route('/modify_experiment/<int:id>', methods=['POST'])
+def modify_experiment(id):
+    experiment = Experiment.query.get_or_404(id)
+    if request.method == 'POST':
+        experiment.name = request.form['name']
+        experiment.results = request.form['results']
+        experiment.spacecraft_id = request.form['spacecraft_id']
+        db.session.commit()
+    return redirect(url_for('experiments'))
 
 @app.route('/alien_encounters')
 def alien_encounters():
@@ -181,8 +244,25 @@ def add_alien_encounter():
         new_encounter = AlienEncounter(description=description, location=location, date=date)
         db.session.add(new_encounter)
         db.session.commit()
-        return jsonify(success=True)
-    return redirect(url_for('index'))
+        
+    return redirect(url_for('alien_encounters'))
+
+@app.route('/delete_alien_encounter/<int:id>', methods=['POST'])
+def delete_alien_encounter(id):
+    encounter = AlienEncounter.query.get_or_404(id)
+    db.session.delete(encounter)
+    db.session.commit()
+    return redirect(url_for('alien_encounters'))
+
+@app.route('/modify_alien_encounter/<int:id>', methods=['POST'])
+def modify_alien_encounter(id):
+    encounter = AlienEncounter.query.get_or_404(id)
+    if request.method == 'POST':
+        encounter.description = request.form['description']
+        encounter.location = request.form['location']
+        encounter.date = request.form['date']
+        db.session.commit()
+    return redirect(url_for('alien_encounters'))
 
 @app.route('/mission_details')
 def mission_details():
@@ -193,13 +273,25 @@ def add_mission_detail():
     if request.method == 'POST':
         name = request.form['name']
         destination = request.form['destination']
-
-        new_mission = MissionDetails(name=name, destination=destination)
-        db.session.add(new_mission)
+        new_mission_detail = MissionDetails(name=name, destination=destination)
+        db.session.add(new_mission_detail)
         db.session.commit()
-        return jsonify(success=True)
+    return redirect(url_for('mission_details'))
 
-    return redirect(url_for('index'))
+@app.route('/delete_mission_detail/<int:id>', methods=['POST'])
+def delete_mission_detail(id):
+    mission_detail = MissionDetails.query.get_or_404(id)
+    db.session.delete(mission_detail)
+    db.session.commit()
+    return redirect(url_for('mission_details'))
 
+@app.route('/modify_mission_detail/<int:id>', methods=['POST'])
+def modify_mission_detail(id):
+    mission_detail = MissionDetails.query.get_or_404(id)
+    if request.method == 'POST':
+        mission_detail.name = request.form['name']
+        mission_detail.destination = request.form['destination']
+        db.session.commit()
+    return redirect(url_for('mission_details'))
 if __name__ == '__main__':
     app.run(debug=True)

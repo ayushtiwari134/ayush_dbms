@@ -12,6 +12,7 @@
   </head>
   <body>
     <div class="navbar">
+      <a href="/">Home</a>
       <a href="/celestial_bodies">Celestial Bodies</a>
       <a href="/spacecraft">Spacecraft</a>
       <a href="/astronauts">Astronauts</a>
@@ -25,17 +26,54 @@
         <th>ID</th>
         <th>Name</th>
         <th>Specialization</th>
+        <th>Actions</th>
       </tr>
       {% for astronaut in astronauts %}
       <tr>
         <td>{{ astronaut.id }}</td>
         <td>{{ astronaut.name }}</td>
         <td>{{ astronaut.specialization }}</td>
+        <td>
+          <form
+            method="POST"
+            action="{{ url_for('modify_astronaut', id=astronaut.id) }}"
+          >
+            <input type="hidden" name="id" value="{{ astronaut.id }}" />
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value="{{ astronaut.name }}"
+              required
+            />
+            <label for="specialization">Specialization:</label>
+            <input
+              type="text"
+              id="specialization"
+              name="specialization"
+              value="{{ astronaut.specialization }}"
+              required
+            />
+            <button type="submit">Modify</button>
+          </form>
+          <form
+            method="POST"
+            action="{{ url_for('delete_astronaut', id=astronaut.id) }}"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </table>
     <h2>Add Astronaut</h2>
-    <form class="ajax-form" id="astronaut-form" action="/add_astronaut" method="post">
+    <form
+      class="ajax-form"
+      id="astronaut-form"
+      action="/add_astronaut"
+      method="post"
+    >
       <label for="astronaut_name">Name:</label>
       <input type="text" id="astronaut_name" name="name" required />
 

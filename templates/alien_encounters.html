@@ -28,6 +28,7 @@
         <th>Description</th>
         <th>Location</th>
         <th>Date</th>
+        <th>Actions</th>
       </tr>
       {% for encounter in alien_encounters %}
       <tr>
@@ -35,20 +36,61 @@
         <td>{{ encounter.description }}</td>
         <td>{{ encounter.location }}</td>
         <td>{{ encounter.date }}</td>
+        <td>
+          <form
+            method="POST"
+            action="{{ url_for('modify_alien_encounter', id=encounter.id) }}"
+          >
+            <input type="hidden" name="id" value="{{ encounter.id }}" />
+            <label for="description">Description:</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              value="{{ encounter.description }}"
+              required
+            />
+            <label for="location">Location:</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value="{{ encounter.location }}"
+              required
+            />
+            <label for="date">Date:</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value="{{ encounter.date }}"
+              required
+            />
+            <button type="submit">Modify</button>
+          </form>
+          <form
+            method="POST"
+            action="{{ url_for('delete_alien_encounter', id=encounter.id) }}"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </table>
     <h2>Add Alien Encounter</h2>
-    <form class="ajax-form" id="alien-encounter-form" action="/add_alien_encounter" method="post">
+    <form
+      class="ajax-form"
+      id="alien-encounter-form"
+      action="/add_alien_encounter"
+      method="post"
+    >
       <label for="description">Description:</label>
       <input type="text" id="description" name="description" required />
-
       <label for="location">Location:</label>
       <input type="text" id="location" name="location" required />
-
       <label for="date">Date:</label>
       <input type="date" id="date" name="date" required />
-
       <button type="submit">Add Alien Encounter</button>
     </form>
   </body>
