@@ -7,13 +7,14 @@
 h1 {
   color: #af4a4a; /* Dark red for h1 color */
   margin-bottom: 20px;
+  animation: fadeInUp 0.5s ease-out; /* Fade-in animation from bottom */
 }
 
 .navbar {
   background-color: black; /* Dark background color for navbar */
   padding: 10px;
   text-align: center;
-  /* height: 5vh; */
+  animation: fadeInDown 0.5s ease-out; /* Fade-in animation from top */
 }
 
 .navbar a {
@@ -24,59 +25,43 @@ h1 {
 }
 
 .navbar a:hover {
-  color: #af4a4a; /* Dark red on hover for navbar links */
-}
-
-.left {
-  width: 50%;
-  margin-left: 3rem;
+  color: #af4a4a;
 }
 
 .container {
   text-align: center;
   height: 95vh;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
-  /* gap: 1.5rem; */
 }
 
 p {
   font-size: 20px;
   margin-top: 20px;
+  animation: fadeInUp 0.5s ease-out; /* Fade-in animation from bottom */
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 body {
   font-family: "Arial", sans-serif;
-  /* margin: 20px; */
-  background-color: black;
+  background-color: #000; /* Black background color */
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  height: 100vh;
-}
-
-h1 {
-  color: #af4a4a; /* Dark red for h1 color */
-  /* border-bottom: 2px solid #af4a4a; */
-  padding-bottom: 5px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 100vh;
 }
 
 table {
-  width: 70%;
+  width: 80%;
   border-collapse: collapse;
   margin-bottom: 30px;
   background-color: #444; /* Dark background color for table */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   color: #fff; /* Light text color */
+  animation: fadeIn 0.5s ease-out; /* Fade-in animation */
 }
 
 th,
@@ -88,7 +73,6 @@ td {
 
 th {
   background-color: #666; /* Darker background color for th */
-  color: #fff;
 }
 
 tr:hover {
@@ -96,7 +80,7 @@ tr:hover {
 }
 
 form {
-  width: 70%;
+  width: 80%;
   background-color: #555; /* Darker background color for form */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   padding: 20px;
@@ -106,6 +90,20 @@ form {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  animation: fadeInUp 0.5s ease-out; /* Fade-in animation from bottom */
+}
+.modify {
+  width: 100%;
+  background-color: #555; /* Darker background color for form */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  animation: fadeInUp 0.5s ease-out; /* Fade-in animation from bottom */
 }
 
 label {
@@ -126,7 +124,7 @@ input {
 }
 
 button {
-  background-color: #af4a4a;
+  background-color: #af4a4a; /* Dark red accent color for buttons */
   color: #fff;
   padding: 12px;
   border: none;
@@ -134,12 +132,49 @@ button {
   cursor: pointer;
   font-size: 16px;
   flex: 0 0 calc(30% - 10px);
+  animation: fadeInUp 0.5s ease-out; /* Fade-in animation from bottom */
 }
 
 button:hover {
-  background-color: #ad1b1b;
+  background-color: #ad1b1b; /* Darker red on hover */
 }
+
 h2 {
   margin-bottom: 20px;
   color: #af4a4a; /* Dark red for h2 color */
+  animation: fadeInUp 0.5s ease-out; /* Fade-in animation from bottom */
+}
+
+/* Fade-in animation from top */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in animation from bottom */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

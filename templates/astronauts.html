@@ -35,6 +35,7 @@
         <td>{{ astronaut.specialization }}</td>
         <td>
           <form
+            class="modify"
             method="POST"
             action="{{ url_for('modify_astronaut', id=astronaut.id) }}"
           >

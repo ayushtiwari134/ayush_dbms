@@ -37,6 +37,7 @@
         <td>{{ experiment.spacecraft_id }}</td>
         <td>
           <form
+            class="modify"
             method="POST"
             action="{{ url_for('modify_experiment', id=experiment.id) }}"
           >

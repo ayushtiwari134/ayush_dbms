@@ -35,6 +35,7 @@
         <td>{{ mission.destination }}</td>
         <td>
           <form
+            class="modify"
             method="POST"
             action="{{ url_for('modify_mission_detail', id=mission.id) }}"
           >

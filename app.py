@@ -109,14 +109,14 @@ def add_celestial_body():
         new_celestial_body = CelestialBody(name=name, type=type)
         db.session.add(new_celestial_body)
         db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('celestial_bodies'))
 
 @app.route('/delete_celestial_body/<int:id>', methods=['POST'])
 def delete_celestial_body(id):
     celestial_body = CelestialBody.query.get_or_404(id)
     db.session.delete(celestial_body)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('celestial_bodies'))
 
 @app.route('/modify_celestial_body/<int:id>', methods=['POST'])
 def modify_celestial_body(id):
@@ -125,7 +125,7 @@ def modify_celestial_body(id):
         celestial_body.name = request.form['name']
         celestial_body.type = request.form['type']
         db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('celestial_bodies'))
 
 @app.route('/spacecraft')
 def spacecraft():

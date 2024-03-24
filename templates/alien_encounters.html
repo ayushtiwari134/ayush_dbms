@@ -38,6 +38,7 @@
         <td>{{ encounter.date }}</td>
         <td>
           <form
+            class="modify"
             method="POST"
             action="{{ url_for('modify_alien_encounter', id=encounter.id) }}"
           >
